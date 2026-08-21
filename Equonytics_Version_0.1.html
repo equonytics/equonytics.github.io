@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equonytics | Data Analytics Consulting for North Carolina</title>
+    <meta name="description" content="Equonytics helps mid-market organizations turn data into decisions — from clear reporting to confident, forward-looking action.">
+    <link rel="canonical" href="https://www.equonytics.com/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0C1410;
+            --bg-alt: #0F1A13;
+            --surface: #162018;
+            --surface-hover: #1C2C22;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-strong: rgba(255, 255, 255, 0.12);
+            --cream: #EDE8DE;
+            --muted: rgba(237, 232, 222, 0.62);
+            --faint: rgba(237, 232, 222, 0.35);
+            --forest: #4A8A6C;
+            --forest-light: #5B9E7E;
+            --moss: #6BAA89;
+            --ochre: #C38B2F;
+            --honey: #DFA752;
+            --honey-light: #EAB96A;
+            --serif: 'EB Garamond', Georgia, serif;
+            --sans: 'Inter', system-ui, sans-serif;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+            --radius: 16px;
+            --radius-lg: 24px;
+            --radius-pill: 60px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--cream);
+            font-size: 16px;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* ---------- LOGO (stylized text) ---------- */
+        .logo-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-monogram {
+            width: 38px;
+            height: 38px;
+            border-radius: 9px;
+            background: var(--forest);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(74, 138, 108, 0.3);
+        }
+        .logo-monogram span {
+            font-family: var(--serif);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--honey);
+            letter-spacing: -0.5px;
+        }
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .logo-name {
+            font-family: var(--serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--cream);
+            letter-spacing: -0.3px;
+        }
+        .logo-sub {
+            font-size: 0.62rem;
+            color: var(--muted);
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        /* ---------- NAVIGATION ---------- */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(12, 20, 16, 0.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 24px;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            list-style: none;
+        }
+        .nav-links a {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: var(--honey);
+        }
+        .nav-cta {
+            background: var(--forest);
+            color: white;
+            padding: 8px 20px;
+            border-radius: var(--radius-pill);
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .nav-cta:hover {
+            background: var(--forest-light);
+        }
+
+        /* ---------- BUTTONS ---------- */
+        .btn {
+            display: inline-block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: var(--radius-pill);
+            padding: 12px 28px;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--forest);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: var(--forest-light);
+            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            border: 1px solid var(--border-strong);
+            color: var(--muted);
+            background: transparent;
+        }
+        .btn-secondary:hover {
+            border-color: var(--honey);
+            color: var(--honey);
+        }
+
+        /* ---------- COMMON ---------- */
+        .wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        section {
+            padding: 80px 0;
+        }
+        .kicker {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--honey);
+            margin-bottom: 12px;
+        }
+        h2 {
+            font-family: var(--serif);
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+        h2 em {
+            font-style: italic;
+            color: var(--honey-light);
+        }
+        .lead {
+            font-size: 0.95rem;
+            color: var(--muted);
+            max-width: 640px;
+            line-height: 1.7;
+        }
+
+        /* ---------- HERO ---------- */
+        .hero {
+            background: linear-gradient(145deg, #0C1410 0%, #0E1B14 60%, #0A1610 100%);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            padding: 80px 0 90px;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -100px;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(74, 138, 108, 0.08) 0%, transparent 65%);
+            pointer-events: none;
+        }
+        .hero-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.05fr 1fr;
+            gap: 60px;
+            align-items: center;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(95, 159, 126, 0.1);
+            border: 1px solid rgba(95, 159, 126, 0.2);
+            border-radius: var(--radius-pill);
+            padding: 5px 16px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--moss);
+            margin-bottom: 22px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        h1 {
+            font-family: var(--serif);
+            font-size: clamp(2.3rem, 5vw, 3.8rem);
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -0.3px;
+        }
+        h1 em {
+            font-style: italic;
+            color: var(--honey-light);
+        }
+        .hero-sub {
+            font-size: 1.05rem;
+            color: var(--muted);
+            max-width: 500px;
+            margin-bottom: 30px;
+            line-height: 1.75;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, rgba(223, 167, 82, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .hero-wordmark {
+            text-align: center;
+            padding: 18px 0 20px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+        .hero-wordmark-main {
+            font-family: var(--serif);
+            font-size: 1.9rem;
+            font-weight: 600;
+            color: var(--cream);
+            display: block;
+            line-height: 1.2;
+        }
+        .hero-wordmark-sub {
+            font-family: var(--serif);
+            font-size: 0.85rem;
+            font-style: italic;
+            color: var(--honey);
+            letter-spacing: 0.4px;
+        }
+        .hero-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .hs {
+            background: var(--surface-hover);
+            border-radius: 12px;
+            padding: 14px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        .hs strong {
+            display: block;
+            font-family: var(--serif);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--cream);
+            line-height: 1.1;
+        }
+        .hs span {
+            font-size: 0.72rem;
+            color: var(--muted);
+            display: block;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+        /* ---------- STAGES STRIP ---------- */
+        .stages {
+            background: #101E15;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 0;
+        }
+        .stages-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+        .stage {
+            padding: 26px 16px;
+            text-align: center;
+            border-right: 1px solid var(--border);
+            transition: background 0.2s;
+        }
+        .stage:last-child {
+            border-right: none;
+        }
+        .stage:hover {
+            background: var(--surface);
+        }
+        .stage-num {
+            font-family: var(--serif);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--honey);
+            line-height: 1;
+        }
+        .stage-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--cream);
+            margin: 8px 0 4px;
+        }
+        .stage-desc {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        /* ---------- SERVICES ---------- */
+        .services {
+            background: var(--bg);
+        }
+        .svc-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .svc {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 30px 28px;
+            border: 1px solid var(--border);
+            transition: border-color 0.25s, transform 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+        .svc::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: transparent;
+            transition: background 0.25s;
+        }
+        .svc:hover {
+            border-color: rgba(223, 167, 82, 0.3);
+            transform: translateY(-4px);
+        }
+        .svc:hover::after {
+            background: var(--ochre);
+        }
+        .svc h3 {
+            font-family: var(--serif);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--cream);
+        }
+        .svc p {
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 14px;
+        }
+        .svc ul {
+            list-style: none;
+        }
+        .svc li {
+            font-size: 0.82rem;
+            color: var(--moss);
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 7px;
+            line-height: 1.5;
+        }
+        .svc li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--moss);
+        }
+
+        /* ---------- PROCESS ---------- */
+        .process {
+            background: var(--bg-alt);
+        }
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .ps {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 26px 22px;
+            border: 1px solid var(--border);
+            transition: border-color 0.2s, transform 0.2s;
+            position: relative;
+        }
+        .ps:hover {
+            border-color: rgba(223, 167, 82, 0.3);
+            transform: translateY(-3px);
+        }
+        .ps::before {
+            content: attr(data-n);
+            font-family: var(--serif);
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: rgba(237, 232, 222, 0.12);
+            display: block;
+            margin-bottom: 12px;
+            line-height: 1;
+        }
+        .ps h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--cream);
+            margin-bottom: 8px;
+        }
+        .ps p {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        /* ---------- RESULTS ---------- */
+        .results {
+            background: var(--bg);
+        }
+        .result-card {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 40px 44px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+        .result-quote {
+            font-family: var(--serif);
+            font-size: 1.3rem;
+            color: var(--cream);
+            font-style: italic;
+            line-height: 1.55;
+            margin-bottom: 18px;
+            position: relative;
+        }
+        .result-quote::before {
+            content: '\201C';
+            font-size: 4rem;
+            color: var(--honey);
+            opacity: 0.4;
+            line-height: 0;
+            vertical-align: -0.35em;
+            margin-right: 6px;
+        }
+        .result-attr {
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+        .result-attr strong {
+            color: var(--cream);
+            font-weight: 600;
+        }
+        .result-metrics {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .rm {
+            background: var(--surface-hover);
+            border-radius: 12px;
+            padding: 14px 18px;
+            text-align: center;
+            flex: 1;
+            min-width: 100px;
+            border: 1px solid var(--border);
+        }
+        .rm strong {
+            display: block;
+            font-family: var(--serif);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--honey);
+            line-height: 1.1;
+        }
+        .rm span {
+            font-size: 0.7rem;
+            color: var(--muted);
+            display: block;
+            margin-top: 4px;
+        }
+
+        /* ---------- CTA ---------- */
+        .cta {
+            background: var(--bg-alt);
+        }
+        .cta-box {
+            max-width: 720px;
+            margin: 0 auto;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 56px 40px;
+            text-align: center;
+            border: 1px solid rgba(74, 138, 108, 0.2);
+            box-shadow: 0 0 60px rgba(74, 138, 108, 0.06);
+        }
+        .cta-box h2 {
+            margin-bottom: 16px;
+        }
+        .cta-box p {
+            color: var(--muted);
+            max-width: 460px;
+            margin: 0 auto 30px;
+            line-height: 1.7;
+        }
+        .cta-form {
+            display: flex;
+            max-width: 420px;
+            margin: 0 auto;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .cta-form input {
+            flex: 2;
+            min-width: 180px;
+            padding: 12px 20px;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--border);
+            background: var(--surface-hover);
+            color: var(--cream);
+            font-family: var(--sans);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .cta-form input::placeholder {
+            color: var(--faint);
+        }
+        .cta-form input:focus {
+            border-color: rgba(74, 138, 108, 0.5);
+        }
+        .cta-form button {
+            background: var(--forest);
+            border: none;
+            border-radius: var(--radius-pill);
+            padding: 0 28px;
+            font-family: var(--sans);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .cta-form button:hover {
+            background: var(--forest-light);
+        }
+        .cta-note {
+            font-size: 0.72rem;
+            color: var(--faint);
+            margin-top: 16px;
+        }
+
+        /* ---------- FOOTER ---------- */
+        footer {
+            background: #090D0B;
+            border-top: 1px solid var(--border);
+            padding: 56px 24px 32px;
+        }
+        .foot-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.8fr 1fr 1fr 1fr;
+            gap: 36px;
+            padding-bottom: 36px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+        .footer-wordmark {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .footer-monogram {
+            width: 32px;
+            height: 32px;
+            border-radius: 7px;
+            background: var(--forest);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .footer-monogram span {
+            font-family: var(--serif);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--honey);
+        }
+        .footer-name {
+            font-family: var(--serif);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--cream);
+        }
+        .footer-desc {
+            font-size: 0.82rem;
+            color: var(--muted);
+            max-width: 260px;
+            margin-bottom: 10px;
+        }
+        .footer-loc {
+            font-size: 0.75rem;
+            color: var(--faint);
+        }
+        .fc h4 {
+            font-size: 0.66rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--ochre);
+            margin-bottom: 12px;
+        }
+        .fc ul {
+            list-style: none;
+        }
+        .fc li {
+            margin-bottom: 8px;
+        }
+        .fc a {
+            font-size: 0.84rem;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+        .fc a:hover {
+            color: var(--honey);
+        }
+        .foot-bottom {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: var(--faint);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 900px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .stages-inner {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .svc-grid {
+                grid-template-columns: 1fr;
+            }
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .foot-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 560px) {
+            .nav-links {
+                display: none;
+            }
+            .stages-inner {
+                grid-template-columns: 1fr;
+            }
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+            .foot-inner {
+                grid-template-columns: 1fr;
+            }
+            .result-card {
+                padding: 30px 24px;
+            }
+            .cta-box {
+                padding: 40px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-inner">
+            <a href="#" class="logo-block">
+                <div class="logo-monogram"><span>EQ</span></div>
+                <div class="logo-text">
+                    <span class="logo-name">Equonytics</span>
+                    <span class="logo-sub">Decisions, not dashboards</span>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#services">What We Do</a></li>
+                <li><a href="#process">How We Work</a></li>
+                <li><a href="#results">Results</a></li>
+                <li><a href="#contact" class="nav-cta">Request Assessment</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-inner">
+            <div>
+                <div class="hero-kicker">Analytics for North Carolina's Mid‑Market</div>
+                <h1>Turn your data into <em>decisions</em>—<br>before your competitors do.</h1>
+                <p class="hero-sub">Equonytics helps organizations move from scattered reports and gut feel to a single system that flags risks, finds opportunities, and tells you what to do next. We don't sell software. We deliver clarity.</p>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn btn-primary">Request a free assessment</a>
+                    <a href="#services" class="btn btn-secondary">See what we do</a>
+                </div>
+            </div>
+            <div class="hero-card">
+                <div class="hero-wordmark">
+                    <span class="hero-wordmark-main">Equonytics</span>
+                    <span class="hero-wordmark-sub">From reporting to reasoning</span>
+                </div>
+                <div class="hero-stats">
+                    <div class="hs"><strong>90 days</strong><span>average time to first ROI</span></div>
+                    <div class="hs"><strong>100%</strong><span>client ownership of all work</span></div>
+                    <div class="hs"><strong>0%</strong><span>vendor commissions</span></div>
+                    <div class="hs"><strong>50+</strong><span>NC engagements</span></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- STAGES STRIP -->
+    <div class="stages">
+        <div class="stages-inner">
+            <div class="stage"><div class="stage-num">01</div><div class="stage-name">See Clearly</div><div class="stage-desc">What happened?</div></div>
+            <div class="stage"><div class="stage-num">02</div><div class="stage-name">Understand Why</div><div class="stage-desc">Why did it happen?</div></div>
+            <div class="stage"><div class="stage-num">03</div><div class="stage-name">Anticipate Next</div><div class="stage-desc">What will happen?</div></div>
+            <div class="stage"><div class="stage-num">04</div><div class="stage-name">Act with Confidence</div><div class="stage-desc">What should we do?</div></div>
+        </div>
+    </div>
+
+    <!-- SERVICES -->
+    <section class="services" id="services">
+        <div class="wrap">
+            <span class="kicker">What We Do</span>
+            <h2>Right‑sized analytics for <em>where you are now</em> — and where you're going.</h2>
+            <p class="lead">You don't need a data science department. You need a partner who meets you at your current stage, delivers measurable value fast, and builds from there.</p>
+            <div class="svc-grid">
+                <div class="svc">
+                    <h3>Foundation &amp; Reporting</h3>
+                    <p>Get your data in order. We build the pipes and dashboards that replace manual reporting and give every leader a single, current view of the business.</p>
+                    <ul>
+                        <li>Cloud data warehouse &amp; governance</li>
+                        <li>Executive dashboards &amp; KPI scorecards</li>
+                        <li>Automated report distribution</li>
+                    </ul>
+                </div>
+                <div class="svc">
+                    <h3>Diagnostic &amp; Predictive</h3>
+                    <p>Move from explaining the past to anticipating the future. We build models that surface root causes, forecast demand, and flag risks before they hurt.</p>
+                    <ul>
+                        <li>Demand &amp; revenue forecasting</li>
+                        <li>Customer churn &amp; retention modeling</li>
+                        <li>Anomaly detection &amp; early warnings</li>
+                    </ul>
+                </div>
+                <div class="svc">
+                    <h3>Prescriptive &amp; Autonomous</h3>
+                    <p>Let your data recommend actions. We embed decision intelligence into pricing, operations, sourcing, and risk — so your systems continuously tell you what to do next.</p>
+                    <ul>
+                        <li>Dynamic price optimization</li>
+                        <li>Autonomous risk monitoring</li>
+                        <li>Recommendation &amp; scenario systems</li>
+                    </ul>
+                </div>
+                <div class="svc">
+                    <h3>Maturity Assessment</h3>
+                    <p>Not sure where to start? Our fixed‑fee, two‑week diagnostic places your organization on the analytics curve and gives you a funded roadmap with clear milestones.</p>
+                    <ul>
+                        <li>Current state audit</li>
+                        <li>Highest‑ROI next step identified</li>
+                        <li>Board‑ready roadmap</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="process" id="process">
+        <div class="wrap">
+            <span class="kicker">How We Work</span>
+            <h2>Clear scope. Defined deliverables. <em>No ambiguity.</em></h2>
+            <div class="process-grid">
+                <div class="ps" data-n="01">
+                    <h3>Discovery Call</h3>
+                    <p>A complimentary 60‑minute conversation to understand your priorities, current state, and constraints.</p>
+                </div>
+                <div class="ps" data-n="02">
+                    <h3>Maturity Assessment</h3>
+                    <p>A two‑week diagnostic that places you on the analytics curve and identifies the highest‑value next step.</p>
+                </div>
+                <div class="ps" data-n="03">
+                    <h3>Sprint Delivery</h3>
+                    <p>We deliver working solutions in 2–4 week sprints — not interim reports. You see progress constantly.</p>
+                </div>
+                <div class="ps" data-n="04">
+                    <h3>Transfer &amp; Advance</h3>
+                    <p>You own everything: models, pipelines, dashboards, and documentation. We build for your independence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="results" id="results">
+        <div class="wrap">
+            <span class="kicker">Client Results</span>
+            <h2 style="text-align:center; margin-bottom:40px;">Analytics maturity, <em>measured in outcomes.</em></h2>
+            <div class="result-card">
+                <div class="result-quote">Before Equonytics, our pricing and inventory decisions relied on month‑old reports and management judgment. Eight months later, we have real‑time dashboards, a demand forecast, and a pricing model that adapts continuously. The ROI was visible within the first ninety days.</div>
+                <div class="result-attr"><strong>Chief Operating Officer</strong> — Regional distribution company, Greensboro NC · $45M revenue</div>
+                <div class="result-metrics">
+                    <div class="rm"><strong>28%</strong><span>Reduction in overstock costs</span></div>
+                    <div class="rm"><strong>+6 pts</strong><span>Gross margin improvement</span></div>
+                    <div class="rm"><strong>16 hrs</strong><span>Weekly reporting hours recovered</span></div>
+                    <div class="rm"><strong>90 days</strong><span>Time to first measurable ROI</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / CONTACT -->
+    <section class="cta" id="contact">
+        <div class="wrap">
+            <div class="cta-box">
+                <span class="kicker">Request an Assessment</span>
+                <h2>Find out where you sit on the analytics curve.</h2>
+                <p>A complimentary 60‑minute conversation is enough to identify your current stage, surface the highest‑value opportunities in your existing data, and outline a realistic path forward.</p>
+                <form class="cta-form" action="https://formspree.io/f/xnparqle" method="POST">
+                    <input type="hidden" name="_subject" value="Equonytics Assessment Request">
+                    <input type="text" name="_gotcha" style="display:none">
+                    <input type="hidden" name="_next" value="https://www.equonytics.com/thank-you.html">
+                    <input type="email" name="email" placeholder="you@yourorganization.com" aria-label="Email address" required>
+                    <button type="submit">Request assessment</button>
+                </form>
+                <p class="cta-note">hello@equonytics.com · Research Triangle, NC</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="foot-inner">
+            <div>
+                <div class="footer-wordmark">
+                    <div class="footer-monogram"><span>EQ</span></div>
+                    <span class="footer-name">Equonytics</span>
+                </div>
+                <p class="footer-desc">Independent analytics consultancy advancing NC organizations from clear reporting to confident decisions.</p>
+                <div class="footer-loc">Research Triangle, NC — serving North Carolina and beyond</div>
+            </div>
+            <div class="fc">
+                <h4>What We Do</h4>
+                <ul>
+                    <li><a href="#services">Foundation &amp; Reporting</a></li>
+                    <li><a href="#services">Diagnostic &amp; Predictive</a></li>
+                    <li><a href="#services">Prescriptive Systems</a></li>
+                    <li><a href="#services">Maturity Assessment</a></li>
+                </ul>
+            </div>
+            <div class="fc">
+                <h4>How We Work</h4>
+                <ul>
+                    <li><a href="#process">Discovery Call</a></li>
+                    <li><a href="#process">Maturity Assessment</a></li>
+                    <li><a href="#process">Sprint Delivery</a></li>
+                    <li><a href="#process">Transfer &amp; Advance</a></li>
+                </ul>
+            </div>
+            <div class="fc">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#results">Client Results</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="foot-bottom">
+            <span>© 2025 Equonytics LLC · All rights reserved · Research Triangle, NC</span>
+            <span>hello@equonytics.com</span>
+        </div>
+    </footer>
+
+</body>
+</html>

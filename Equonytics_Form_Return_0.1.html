@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You | Equonytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0C1410;
+            --surface: #162018;
+            --border: rgba(255,255,255,0.07);
+            --cream: #EDE8DE;
+            --muted: rgba(237,232,222,0.62);
+            --forest: #4A8A6C;
+            --forest-light: #5B9E7E;
+            --honey: #DFA752;
+            --serif: 'EB Garamond', Georgia, serif;
+            --sans: 'Inter', system-ui, sans-serif;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+            text-align: center;
+            line-height: 1.6;
+        }
+        .card {
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 60px 40px;
+            max-width: 560px;
+            width: 100%;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.35);
+        }
+        .logo-monogram {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: var(--forest);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-family: var(--serif);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--honey);
+        }
+        h1 {
+            font-family: var(--serif);
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        p {
+            color: var(--muted);
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+        a.btn {
+            display: inline-block;
+            background: var(--forest);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 12px 28px;
+            border-radius: 60px;
+            transition: background 0.2s;
+        }
+        a.btn:hover {
+            background: var(--forest-light);
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo-monogram">EQ</div>
+        <h1>Thank you.</h1>
+        <p>Your assessment request has been received. We'll reply within one business day with next steps.</p>
+        <a href="index.html" class="btn">Return to homepage</a>
+    </div>
+</body>
+</html>
