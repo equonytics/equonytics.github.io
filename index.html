@@ -875,6 +875,11 @@
                 <span class="eyebrow">Request an assessment</span>
                 <h2>Find out where you sit on the analytics curve.</h2>
                 <p>A single, complimentary 60-minute conversation is enough to place you on the analytics curve, surface the highest-value opportunity in your data, and outline a realistic path forward.</p>
+
+                <!-- Analytics maturity curve visualization (bell curve) -->
+                <div id="analytics-curve-chart" style="max-width: 500px; margin: 0 auto 10px; height: 220px;" aria-label="Analytics maturity distribution curve from Analytics 1.0 to 4.0"></div>
+                <p style="font-family: var(--serif); font-size: 1.15rem; color: var(--cream); margin: 0 auto 30px;"><strong>Where are you now? Where would you like to be?</strong></p>
+
                 <form class="cta-form" action="https://formspree.io/f/xnparqle" method="POST">
                     <input type="hidden" name="_subject" value="Equonytics Assessment Request">
                     <input type="text" name="_gotcha" style="display:none">
@@ -1109,6 +1114,133 @@
         initChart('slotting-details', 'slotting-chart', renderSlotting);
         initChart('churn-details', 'churn-chart', renderChurn);
         initChart('bundle-details', 'bundle-chart', renderBundle);
+
+        // Updated analytics maturity curve
+        function renderAnalyticsCurve() {
+            var k = 3;
+            var theta = 0.4;
+
+            var xValues = [];
+            var rawYValues = [];
+            for (var x = 0.0; x <= 4.0; x += 0.05) {
+                xValues.push(x);
+                var raw = Math.pow(x, k - 1) * Math.exp(-x / theta);
+                rawYValues.push(raw);
+            }
+
+            var maxRaw = Math.max.apply(null, rawYValues);
+            var yValues = rawYValues.map(function (val) { return val / maxRaw; });
+
+            var bellTrace = {
+                x: xValues,
+                y: yValues,
+                mode: 'lines',
+                type: 'scatter',
+                line: { color: '#C79A4E', width: 3, shape: 'spline' },
+                fill: 'tozeroy',
+                fillcolor: 'rgba(199,154,78,0.2)',
+                hoverinfo: 'skip',
+                showlegend: false
+            };
+
+            var pointX = [0.0, 1.0, 2.0, 3.0, 4.0];
+            var pointY = pointX.map(function (x) {
+                if (x === 0.0) return 0;
+                var raw = Math.pow(x, k - 1) * Math.exp(-x / theta);
+                return raw / maxRaw;
+            });
+
+            var pointTrace = {
+                x: pointX,
+                y: pointY,
+                mode: 'markers',
+                type: 'scatter',
+                marker: {
+                    color: '#C79A4E',
+                    size: 12,
+                    line: { width: 2, color: '#0E1512' }
+                },
+                customdata: [
+                    {
+                        title: 'Pre‑Analytics',
+                        desc: 'Unstructured',
+                        blurb: 'Messy data, conflicting KPI definitions, or missing fundamentals often hold organizations back.'
+                    },
+                    {
+                        title: 'Analytics 1.0',
+                        desc: 'Descriptive',
+                        blurb: 'What happened? Dashboards and reports are used to understand the past.'
+                    },
+                    {
+                        title: 'Analytics 2.0',
+                        desc: 'Predictive',
+                        blurb: 'What will happen? Models forecast future trends and identify risks.'
+                    },
+                    {
+                        title: 'Analytics 3.0',
+                        desc: 'Prescriptive',
+                        blurb: 'What should we do? Recommendations are generated to optimize decisions.'
+                    },
+                    {
+                        title: 'Analytics 4.0',
+                        desc: 'Autonomous',
+                        blurb: 'Let the system decide. Self‑learning systems take action automatically.'
+                    }
+                ],
+                hovertemplate:
+                    '<b>%{customdata.title}</b> — %{customdata.desc}<br>' +
+                    '%{customdata.blurb}<extra></extra>',
+                showlegend: false
+            };
+
+            var layout = {
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                font: { family: 'Inter', color: 'rgba(237,232,222,0.75)', size: 10 },
+                margin: { l: 40, r: 30, t: 30, b: 40 },
+                xaxis: {
+                    range: [-0.1, 4.2],   // start slightly before 0 without tick label
+                    tickvals: [0, 1, 2, 3, 4],
+                    ticktext: ['0', '1.0', '2.0', '3.0', '4.0'],
+                    showgrid: false,
+                    zeroline: false,
+                    tickfont: { family: 'IBM Plex Mono', size: 10 }
+                },
+                yaxis: {
+                    showticklabels: false,
+                    showgrid: false,
+                    zeroline: false,
+                    range: [0, 1.25]
+                },
+                annotations: [
+                    {
+                        x: 0.85,
+                        y: 1.12,
+                        text: 'Most<br>businesses',
+                        showarrow: false,
+                        font: { family: 'Inter', size: 9, color: '#EDE8DD' },
+                        align: 'center'
+                    },
+                    {
+                        x: 4.0,
+                        y: 0.95,
+                        text: 'State of<br>the art',
+                        showarrow: false,
+                        font: { family: 'Inter', size: 9, color: '#C79A4E' },
+                        align: 'center'
+                    }
+                ],
+                hoverlabel: {
+                    bgcolor: '#1D2B22',
+                    bordercolor: '#C79A4E',
+                    font: { family: 'Inter', size: 11, color: '#EDE8DD' }
+                }
+            };
+
+            Plotly.newPlot('analytics-curve-chart', [bellTrace, pointTrace], layout, { displayModeBar: false, responsive: true });
+        }
+
+        renderAnalyticsCurve();
     </script>
     <script>
         if ('IntersectionObserver' in window) {
