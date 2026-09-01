@@ -87,6 +87,21 @@
         ::selection { background: var(--forest-dark); color: var(--brass); }
         :focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
 
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            z-index: 1000;
+            background: var(--surface);
+            color: var(--cream);
+            padding: 12px 20px;
+            border-radius: 0 0 8px 0;
+            font-weight: 600;
+        }
+        .skip-link:focus {
+            left: 0;
+        }
+
         .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 
         .eyebrow {
@@ -108,7 +123,7 @@
             display: inline-block;
         }
 
-        h1, h2, h3 { font-family: var(--serif); color: var(--cream); }
+        h1, h2, h3, h4 { font-family: var(--serif); color: var(--cream); }
         h2 {
             font-size: clamp(1.8rem, 3.6vw, 2.5rem);
             font-weight: 600;
@@ -156,6 +171,8 @@
             align-items: center;
             justify-content: space-between;
             padding: 14px 24px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         .logo-block { display: flex; align-items: center; gap: 10px; }
         .logo-monogram {
@@ -167,8 +184,20 @@
         }
         .logo-monogram span { font-family: var(--serif); font-size: 1rem; font-weight: 600; color: var(--brass); }
         .logo-text { display: flex; flex-direction: column; line-height: 1.2; }
-        .logo-name { font-family: var(--serif); font-size: 1.24rem; font-weight: 600; letter-spacing: -0.2px; }
+        .logo-name { font-family: var(--serif); font-size: 1.24rem; font-weight: 600; letter-spacing: -0.2px; color: var(--brass); }
         .logo-sub { font-family: var(--mono); font-size: 0.6rem; color: var(--faint); letter-spacing: 0.4px; text-transform: uppercase; }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+        .nav-links a {
+            font-size: 0.85rem;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--cream); }
 
         .nav-cta {
             background: var(--forest);
@@ -214,6 +243,7 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
             list-style: none;
+            padding: 0;
         }
         .service-option {
             background: var(--surface);
@@ -233,7 +263,8 @@
             border-color: var(--brass);
             box-shadow: var(--shadow);
         }
-        .service-option.active {
+        .service-option.active,
+        .service-option[aria-selected="true"] {
             border-color: var(--forest);
             background: var(--surface-2);
             box-shadow: var(--shadow);
@@ -268,25 +299,25 @@
             line-height: 1.5;
         }
         .service-option.active .option-mark,
-        .service-option.active .option-title {
+        .service-option[aria-selected="true"] .option-mark,
+        .service-option.active .option-title,
+        .service-option[aria-selected="true"] .option-title {
             color: var(--brass);
         }
         .service-option:nth-child(5) {
             grid-column: 1 / -1;
         }
 
-        .service-placeholder {
-            display: block;
-            text-align: center;
-            padding: 20px 0;
-            color: var(--faint);
-            font-family: var(--sans);
-            font-size: 0.9rem;
-        }
-
         /* ---------- TAB PANELS ---------- */
-        .tab-panel { display: none; }
-        .tab-panel.active { display: block; }
+        .tab-panel {
+            display: none;
+        }
+        .tab-panel.active {
+            display: block;
+        }
+        [role="tabpanel"]:focus {
+            outline: none;
+        }
 
         /* ---------- HOW WE WORK (timeline) ---------- */
         .process-list { margin-top: 40px; position: relative; }
@@ -517,6 +548,16 @@
         .cta-form button:hover { background: var(--forest-deep); }
         .cta-note { font-family: var(--mono); font-size: 0.7rem; color: var(--faint); margin-top: 18px; letter-spacing: 0.2px; }
         .cta-confidential { font-size: 0.78rem; color: var(--muted); max-width: 420px; margin: 16px auto 0; line-height: 1.6; }
+        .form-success {
+            display: none;
+            background: var(--surface-2);
+            border: 1px solid var(--forest);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 20px;
+            color: var(--cream);
+        }
+        .form-success.visible { display: block; }
 
         /* ---------- FOOTER ---------- */
         footer { background: #0A0F0C; padding: 56px 24px 28px; border-top: 1px solid var(--border); }
@@ -536,7 +577,14 @@
         .fc li { margin-bottom: 8px; }
         .fc a { font-size: 0.84rem; color: var(--muted); transition: color 0.2s; }
         .fc a:hover { color: var(--cream); }
-        .foot-bottom { max-width: 1120px; margin: 0 auto; display: flex; justify-content: space-between; font-family: var(--mono); font-size: 0.64rem; color: var(--faint); flex-wrap: wrap; gap: 8px; }
+        .foot-bottom { max-width: 1120px; margin: 0 auto; display: flex; justify-content: space-between; font-family: var(--mono); font-size: 0.64rem; color: var(--faint); flex-wrap: wrap; gap: 8px; align-items: center; }
+        .back-to-top {
+            color: var(--faint);
+            font-family: var(--mono);
+            font-size: 0.64rem;
+            transition: color 0.2s;
+        }
+        .back-to-top:hover { color: var(--brass); }
 
         /* ---------- REVEAL ---------- */
         .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -548,14 +596,13 @@
 
         /* ---------- RESPONSIVE ---------- */
         @media (max-width: 900px) {
+            .nav-inner { flex-direction: column; align-items: stretch; }
+            .nav-links { order: 3; justify-content: center; flex-wrap: wrap; gap: 16px; }
+            .nav-cta { align-self: center; }
             .hero-inner { max-width: 100%; }
-            .principles-inner { grid-template-columns: 1fr; gap: 22px; }
-            .principle { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 20px; }
-            .principle:first-child { border-top: none; padding-top: 0; }
             .stages-inner { grid-template-columns: repeat(2, 1fr); }
             .stage:nth-child(2) { border-right: none; }
             .svc-grid { grid-template-columns: 1fr; }
-            .svc-grid .svc:last-child { grid-column: auto; }
             .foot-inner { grid-template-columns: 1fr 1fr; }
             .examples-grid { grid-template-columns: 1fr; }
             .service-options { grid-template-columns: 1fr; }
@@ -573,6 +620,7 @@
     </style>
 </head>
 <body>
+    <a href="#main" class="skip-link">Skip to content</a>
 
     <!-- HEADER -->
     <nav>
@@ -581,21 +629,28 @@
                 <div class="logo-monogram"><span>EQ</span></div>
                 <div class="logo-text">
                     <span class="logo-name">Equonytics</span>
-                    <span class="logo-sub">Data that decides</span>
+                    <span class="logo-sub">Help Building & Navigating your Data Streams</span>
                 </div>
             </a>
-            <a href="#contact" class="nav-cta">Start a conversation</a>
+            <ul class="nav-links">
+                <li><a href="#service-selector">Services</a></li>
+                <li><a href="#examples">Examples</a></li>
+                <li><a href="#results">Results</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#contact" class="nav-cta">Request assessment</a>
         </div>
     </nav>
 
     <!-- MAIN HERO -->
-    <header class="hero">
+    <header class="hero" id="main">
         <div class="hero-inner">
             <span class="eyebrow">Data & decision consulting</span>
             <h1><strong>The answer</strong> is usually hiding in your data. We help you find it.</h1>
             <p class="hero-sub">Most mid‑market companies are sitting on more information than they realize. The problem isn’t a lack of data—it’s that no one has connected it to the decisions that actually move the business. We cut through the noise, skip the jargon, and give you a clear read on what happened, why, and what to do next.</p>
             <div class="hero-actions">
-                <a href="#contact" class="btn btn-primary">Start a conversation</a>
+                <a href="#contact" class="btn btn-primary">Request assessment</a>
+                <a href="#service-selector" class="btn btn-secondary">Explore services</a>
             </div>
         </div>
     </header>
@@ -603,29 +658,29 @@
     <!-- SERVICE SELECTOR -->
     <section class="service-selector" id="service-selector">
         <div class="wrap">
-            <h2>What does your business need assistance with? <span style="font-size:0.9rem; color:var(--faint);">(Select an option to see details)</span></h2>
-            <div class="service-options" id="service-options">
-                <button class="service-option" data-tab="fractional">
+            <h2>What does your business need assistance with?</h2>
+            <div class="service-options" id="service-options" role="tablist" aria-label="Service options">
+                <button class="service-option active" data-tab="fractional" role="tab" aria-selected="true" aria-controls="panel-fractional" id="tab-fractional">
                     <span class="option-mark">01</span>
                     <div class="option-title-wrap"><span class="option-icon"></span><span class="option-title">Fractional Leadership</span></div>
                     <span class="option-desc">Senior CDO or VP Analytics expertise, part‑time.</span>
                 </button>
-                <button class="service-option" data-tab="assessment">
+                <button class="service-option" data-tab="assessment" role="tab" aria-selected="false" aria-controls="panel-assessment" id="tab-assessment">
                     <span class="option-mark">02</span>
                     <div class="option-title-wrap"><span class="option-icon"></span><span class="option-title">Analytics Maturity Assessment</span></div>
                     <span class="option-desc">Know where you stand and what to fix first.</span>
                 </button>
-                <button class="service-option" data-tab="change">
+                <button class="service-option" data-tab="change" role="tab" aria-selected="false" aria-controls="panel-change" id="tab-change">
                     <span class="option-mark">03</span>
                     <div class="option-title-wrap"><span class="option-icon"></span><span class="option-title">Change Management</span></div>
                     <span class="option-desc">Embed data‑driven decisions into daily work.</span>
                 </button>
-                <button class="service-option" data-tab="forecasting">
+                <button class="service-option" data-tab="forecasting" role="tab" aria-selected="false" aria-controls="panel-forecasting" id="tab-forecasting">
                     <span class="option-mark">04</span>
-                    <div class="option-title-wrap"><span class="option-icon"></span><span class="option-title">Forecasting Modelling</span></div>
+                    <div class="option-title-wrap"><span class="option-icon"></span><span class="option-title">Forecast Modelling</span></div>
                     <span class="option-desc">Predictive models for demand, churn, and risk.</span>
                 </button>
-                <button class="service-option" data-tab="ai">
+                <button class="service-option" data-tab="ai" role="tab" aria-selected="false" aria-controls="panel-ai" id="tab-ai">
                     <span class="option-mark">05</span>
                     <div class="option-title-wrap"><span class="option-icon"></span><span class="option-title">AI Business Process Integration</span></div>
                     <span class="option-desc">Tooling, modelling, and context for real AI value.</span>
@@ -634,278 +689,277 @@
         </div>
     </section>
 
-    <!-- PLACEHOLDER -->
-    <div class="service-placeholder" id="service-placeholder">
-        <p>↑ Choose an option above to see how we can help.</p>
-    </div>
-
     <!-- CONTENT PANELS -->
-    <!-- 1. Fractional Leadership -->
-    <div class="tab-panel" id="panel-fractional">
-        <section class="reveal">
-            <div class="wrap">
-                <span class="eyebrow">Fractional Leadership</span>
-                <h2>Senior data leadership, <strong>without the full‑time hire.</strong></h2>
-                <p class="lead">You need someone who can set the data strategy, talk to the board, and build the team. But you may not need them five days a week. We step in as your fractional CDO or VP of Analytics—on a schedule that fits your budget and growth stage.</p>
-                <div class="svc-grid">
-                    <div class="svc">
-                        <span class="svc-mark">Strategy & Roadmap</span>
-                        <h3>Set the direction</h3>
-                        <p>We work with your exec team to define the analytics vision, pick the right initiatives, and make sure every data effort ties to a business goal.</p>
-                        <ul><li>Data strategy development</li><li>Roadmap & investment planning</li><li>Board‑level communication</li></ul>
-                    </div>
-                    <div class="svc">
-                        <span class="svc-mark">Team & Capability</span>
-                        <h3>Build the muscle</h3>
-                        <p>Mentor your analysts, help with hiring, and create a culture where people actually use data to make decisions.</p>
-                        <ul><li>Talent assessment & hiring</li><li>Analytics team mentoring</li><li>Upskilling & training programs</li></ul>
-                    </div>
-                    <div class="svc">
-                        <span class="svc-mark">Governance & Vendor</span>
-                        <h3>Keep vendors honest</h3>
-                        <p>Oversee tool selection, negotiate contracts, and ensure every purchase serves the business—not the vendor’s sales targets.</p>
-                        <ul><li>Vendor evaluation & management</li><li>Data governance framework</li><li>Cost optimization</li></ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="reveal">
-            <div class="wrap">
-                <span class="eyebrow">How it works</span>
-                <h2>Flexible engagement, <strong>clear accountability</strong></h2>
-                <p class="lead">We usually start with a free discovery call, then design a fractional arrangement that fits your cadence—from a few days per month to a few days per week.</p>
-                <div class="process-list">
-                    <div class="ps"><div class="ps-num">01</div><div><h3>Discovery call</h3><p>Understand your current state, team, and strategic goals.</p></div></div>
-                    <div class="ps"><div class="ps-num">02</div><div><h3>Engagement design</h3><p>Define the scope, cadence, and measurable outcomes for the fractional role.</p></div></div>
-                    <div class="ps"><div class="ps-num">03</div><div><h3>Execute & mentor</h3><p>Lead initiatives, build capability, and report progress to leadership.</p></div></div>
-                    <div class="ps"><div class="ps-num">04</div><div><h3>Transition plan</h3><p>When you’re ready to hire full‑time, we help you recruit and transition seamlessly.</p></div></div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- 2. Analytics Maturity Assessment -->
-    <div class="tab-panel" id="panel-assessment">
-        <section class="reveal">
-            <div class="wrap">
-                <span class="eyebrow">Analytics Maturity Assessment</span>
-                <h2>Know exactly <strong>where you stand.</strong></h2>
-                <p class="lead">A two‑week diagnostic that places your organization on the analytics curve, identifies the single highest‑value next step, and hands you a funded roadmap with clear milestones.</p>
-                <div class="svc-grid">
-                    <div class="svc"><span class="svc-mark">Current‑state audit</span><h3>Where you are now</h3><p>We review your data infrastructure, processes, KPIs, and team capabilities to understand what’s working and what’s not.</p><ul><li>Data flow & architecture review</li><li>KPI/KRI glossary gap analysis</li><li>Skills & culture assessment</li></ul></div>
-                    <div class="svc"><span class="svc-mark">Roadmap & ROI</span><h3>Where to go next</h3><p>We identify the highest‑ROI analytics opportunity, sequence initiatives, and estimate the investment required.</p><ul><li>Prioritized initiative list</li><li>Cost & benefit estimates</li><li>Board‑ready roadmap</li></ul></div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- 3. Change Management -->
-    <div class="tab-panel" id="panel-change">
-        <section class="reveal">
-            <div class="wrap">
-                <span class="eyebrow">Change Management</span>
-                <h2>Data changes behavior only when <strong>people change with it.</strong></h2>
-                <p class="lead">We help you embed analytics into daily decisions by aligning people, process, and technology—so the new dashboards actually get used.</p>
-                <div class="svc-grid">
-                    <div class="svc"><span class="svc-mark">Communication</span><h3>Make the case</h3><p>Build understanding and buy‑in through clear messaging, success stories, and leadership alignment.</p><ul><li>Stakeholder mapping & messaging</li><li>Training & enablement</li><li>Feedback loops</li></ul></div>
-                    <div class="svc"><span class="svc-mark">Process redesign</span><h3>Integrate into workflow</h3><p>Redesign processes so that data‑driven decisions become the default, not an afterthought.</p><ul><li>Decision rights clarification</li><li>Workflow embedding</li><li>Incentive alignment</li></ul></div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- 4. Forecasting Modelling -->
-    <div class="tab-panel" id="panel-forecasting">
-        <section class="reveal">
-            <div class="wrap">
-                <span class="eyebrow">Forecasting & Modelling</span>
-                <h2>See around corners with <strong>models you can trust.</strong></h2>
-                <p class="lead">We build predictive models for demand, churn, risk, and more—grounded in your data and validated to perform in the real world.</p>
-                <div class="svc-grid">
-                    <div class="svc"><span class="svc-mark">Demand & Revenue</span><h3>Forecast what’s next</h3><p>Predict demand, revenue, and resource needs with models that adapt to changing conditions.</p><ul><li>Time series forecasting</li><li>Seasonality & trend analysis</li><li>Scenario modelling</li></ul></div>
-                    <div class="svc"><span class="svc-mark">Risk & Churn</span><h3>Anticipate attrition</h3><p>Identify customers or accounts at risk before they leave, and prioritize retention efforts.</p><ul><li>Churn prediction models</li><li>Credit & fraud risk scoring</li><li>Early warning systems</li></ul></div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- 5. AI Business Process Integration -->
-    <div class="tab-panel" id="panel-ai">
-        <section class="reveal">
-            <div class="wrap">
-                <span class="eyebrow">AI Business Process Integration</span>
-                <h2>Put AI to work where it <strong>actually improves decisions.</strong></h2>
-                <p class="lead">We integrate AI into your business processes with the right tooling, modelling, and context—so it makes your team faster and decisions better, without the hype.</p>
-                <div class="svc-grid">
-                    <div class="svc"><span class="svc-mark">Tooling</span><h3>Right‑sized AI stack</h3><p>Select and implement AI tools that fit your size and use case—no overspending on enterprise platforms you don’t need.</p><ul><li>LLM & automation tool selection</li><li>Integration with existing systems</li><li>Cost monitoring</li></ul></div>
-                    <div class="svc"><span class="svc-mark">Modelling</span><h3>Models that make sense</h3><p>Build or fine‑tune models on your data, with guardrails to ensure consistency and safety.</p><ul><li>Custom model development</li><li>Prompt & workflow engineering</li><li>Evaluation & monitoring</li></ul></div>
-                    <div class="svc"><span class="svc-mark">Context‑building</span><h3>Ground AI in your business</h3><p>Create the business context—KPI definitions, data dictionaries, decision rules—so AI answers are accurate and aligned.</p><ul><li>KPI/KRI glossary integration</li><li>Knowledge base & policy ingestion</li><li>Human‑in‑the‑loop workflows</li></ul></div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- EXAMPLES OF OUR WORK -->
-    <section class="reveal" id="examples">
-        <div class="wrap">
-            <span class="eyebrow">Examples of our work</span>
-            <h2>Four interactive examples <strong>straight from the playbook</strong></h2>
-            <p class="lead">Click any card to explore the analysis, chart, and the operating playbook it produced. These are illustrative patterns we commonly see, not named client data.</p>
-            <div class="examples-grid" id="examples-grid">
-                <!-- Example 1 -->
-                <details class="field-card" id="regression-details">
-                    <summary class="field-summary">
-                        <span class="eyebrow" style="margin-bottom:10px;">On-time Delivery & Margins</span>
-                        <h3 style="font-size:1.1rem; font-weight:600; margin-bottom:8px; color:var(--cream);">The threshold effect in service levels</h3>
-                        <p style="font-size:0.85rem; color:var(--muted); line-height:1.65; margin-bottom:16px;">A regression on 21,316 orders showing where service improvement actually pays off.</p>
-                        <span class="expand-cta">View analysis <svg class="chevron" width="11" height="7" viewBox="0 0 11 7" fill="none"><path d="M1 1L5.5 5.5L10 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </summary>
-                    <div class="field-card-body">
-                        <div class="field-card-label"><span>On-time delivery vs. gross margin lift</span><strong>hover to inspect</strong></div>
-                        <div id="regression-chart" class="field-chart-plot"></div>
-                        <div class="field-caption">Every <strong>1-point improvement</strong> was associated with a <strong>0.4-point increase in gross margin</strong>, but only after service crossed <strong>92%</strong>.</div>
-                        <div class="field-stats">
-                            <div class="fs"><strong>0.4</strong><span>margin pts per OTD pt</span></div>
-                            <div class="fs"><strong>92%</strong><span>service-level threshold</span></div>
-                            <div class="fs"><strong>0.81</strong><span>model R²</span></div>
-                            <div class="fs"><strong>21,316</strong><span>orders analyzed</span></div>
+    <main>
+        <!-- 1. Fractional Leadership -->
+        <div class="tab-panel active" id="panel-fractional" role="tabpanel" tabindex="0" aria-labelledby="tab-fractional">
+            <section class="reveal">
+                <div class="wrap">
+                    <span class="eyebrow">Fractional Leadership</span>
+                    <h2>Senior data leadership, <strong>without the full‑time hire.</strong></h2>
+                    <p class="lead">You need someone who can set the data strategy, talk to the board, and build the team. But you may not need them five days a week. We step in as your fractional CDO or VP of Analytics—on a schedule that fits your budget and growth stage.</p>
+                    <div class="svc-grid">
+                        <div class="svc">
+                            <span class="svc-mark">Strategy & Roadmap</span>
+                            <h3>Set the direction</h3>
+                            <p>We work with your exec team to define the analytics vision, pick the right initiatives, and make sure every data effort ties to a business goal.</p>
+                            <ul><li>Data strategy development</li><li>Roadmap & investment planning</li><li>Board‑level communication</li></ul>
                         </div>
-                        <div class="playbook-inner">
-                            <span class="eyebrow">Reading the regression</span>
-                            <h3 style="margin:10px 0;">A metric only earns its keep if it has the capacity to change your strategy.</h3>
-                            <div class="svc-grid" style="margin-top:20px;">
-                                <div class="svc"><span class="svc-mark">Below 92%</span><h4 style="font-size:1.1rem;">Fix the floor</h4><p>Stop spreading effort evenly.</p></div>
-                                <div class="svc"><span class="svc-mark">Above 92%</span><h4 style="font-size:1.1rem;">Harvest the premium</h4><p>Put capital into lanes above the line.</p></div>
+                        <div class="svc">
+                            <span class="svc-mark">Team & Capability</span>
+                            <h3>Build the muscle</h3>
+                            <p>Mentor your analysts, help with hiring, and create a culture where people actually use data to make decisions.</p>
+                            <ul><li>Talent assessment & hiring</li><li>Analytics team mentoring</li><li>Upskilling & training programs</li></ul>
+                        </div>
+                        <div class="svc">
+                            <span class="svc-mark">Governance & Vendor</span>
+                            <h3>Keep vendors honest</h3>
+                            <p>Oversee tool selection, negotiate contracts, and ensure every purchase serves the business—not the vendor’s sales targets.</p>
+                            <ul><li>Vendor evaluation & management</li><li>Data governance framework</li><li>Cost optimization</li></ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="reveal">
+                <div class="wrap">
+                    <span class="eyebrow">How it works</span>
+                    <h2>Flexible engagement, <strong>clear accountability</strong></h2>
+                    <p class="lead">We usually start with a free discovery call, then design a fractional arrangement that fits your cadence—from a few days per month to a few days per week.</p>
+                    <div class="process-list">
+                        <div class="ps"><div class="ps-num">01</div><div><h3>Discovery call</h3><p>Understand your current state, team, and strategic goals.</p></div></div>
+                        <div class="ps"><div class="ps-num">02</div><div><h3>Engagement design</h3><p>Define the scope, cadence, and measurable outcomes for the fractional role.</p></div></div>
+                        <div class="ps"><div class="ps-num">03</div><div><h3>Execute & mentor</h3><p>Lead initiatives, build capability, and report progress to leadership.</p></div></div>
+                        <div class="ps"><div class="ps-num">04</div><div><h3>Transition plan</h3><p>When you’re ready to hire full‑time, we help you recruit and transition seamlessly.</p></div></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 2. Analytics Maturity Assessment -->
+        <div class="tab-panel" id="panel-assessment" role="tabpanel" tabindex="0" aria-labelledby="tab-assessment">
+            <section class="reveal">
+                <div class="wrap">
+                    <span class="eyebrow">Analytics Maturity Assessment</span>
+                    <h2>Know exactly <strong>where you stand.</strong></h2>
+                    <p class="lead">A two‑week diagnostic that places your organization on the analytics curve, identifies the single highest‑value next step, and hands you a funded roadmap with clear milestones.</p>
+                    <div class="svc-grid">
+                        <div class="svc"><span class="svc-mark">Current‑state audit</span><h3>Where you are now</h3><p>We review your data infrastructure, processes, KPIs, and team capabilities to understand what’s working and what’s not.</p><ul><li>Data flow & architecture review</li><li>KPI/KRI glossary gap analysis</li><li>Skills & culture assessment</li></ul></div>
+                        <div class="svc"><span class="svc-mark">Roadmap & ROI</span><h3>Where to go next</h3><p>We identify the highest‑ROI analytics opportunity, sequence initiatives, and estimate the investment required.</p><ul><li>Prioritized initiative list</li><li>Cost & benefit estimates</li><li>Board‑ready roadmap</li></ul></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 3. Change Management -->
+        <div class="tab-panel" id="panel-change" role="tabpanel" tabindex="0" aria-labelledby="tab-change">
+            <section class="reveal">
+                <div class="wrap">
+                    <span class="eyebrow">Change Management</span>
+                    <h2>Data changes behavior only when <strong>people change with it.</strong></h2>
+                    <p class="lead">We help you embed analytics into daily decisions by aligning people, process, and technology—so the new dashboards actually get used.</p>
+                    <div class="svc-grid">
+                        <div class="svc"><span class="svc-mark">Communication</span><h3>Make the case</h3><p>Build understanding and buy‑in through clear messaging, success stories, and leadership alignment.</p><ul><li>Stakeholder mapping & messaging</li><li>Training & enablement</li><li>Feedback loops</li></ul></div>
+                        <div class="svc"><span class="svc-mark">Process redesign</span><h3>Integrate into workflow</h3><p>Redesign processes so that data‑driven decisions become the default, not an afterthought.</p><ul><li>Decision rights clarification</li><li>Workflow embedding</li><li>Incentive alignment</li></ul></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 4. Forecasting Modelling -->
+        <div class="tab-panel" id="panel-forecasting" role="tabpanel" tabindex="0" aria-labelledby="tab-forecasting">
+            <section class="reveal">
+                <div class="wrap">
+                    <span class="eyebrow">Forecasting & Modelling</span>
+                    <h2>See around corners with <strong>models you can trust.</strong></h2>
+                    <p class="lead">We build predictive models for demand, churn, risk, and more—grounded in your data and validated to perform in the real world.</p>
+                    <div class="svc-grid">
+                        <div class="svc"><span class="svc-mark">Demand & Revenue</span><h3>Forecast what’s next</h3><p>Predict demand, revenue, and resource needs with models that adapt to changing conditions.</p><ul><li>Time series forecasting</li><li>Seasonality & trend analysis</li><li>Scenario modelling</li></ul></div>
+                        <div class="svc"><span class="svc-mark">Risk & Churn</span><h3>Anticipate attrition</h3><p>Identify customers or accounts at risk before they leave, and prioritize retention efforts.</p><ul><li>Churn prediction models</li><li>Credit & fraud risk scoring</li><li>Early warning systems</li></ul></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 5. AI Business Process Integration -->
+        <div class="tab-panel" id="panel-ai" role="tabpanel" tabindex="0" aria-labelledby="tab-ai">
+            <section class="reveal">
+                <div class="wrap">
+                    <span class="eyebrow">AI Business Process Integration</span>
+                    <h2>Put AI to work where it <strong>actually improves decisions.</strong></h2>
+                    <p class="lead">We integrate AI into your business processes with the right tooling, modelling, and context—so it makes your team faster and decisions better, without the hype.</p>
+                    <div class="svc-grid">
+                        <div class="svc"><span class="svc-mark">Tooling</span><h3>Right‑sized AI stack</h3><p>Select and implement AI tools that fit your size and use case—no overspending on enterprise platforms you don’t need.</p><ul><li>LLM & automation tool selection</li><li>Integration with existing systems</li><li>Cost monitoring</li></ul></div>
+                        <div class="svc"><span class="svc-mark">Modelling</span><h3>Models that make sense</h3><p>Build or fine‑tune models on your data, with guardrails to ensure consistency and safety.</p><ul><li>Custom model development</li><li>Prompt & workflow engineering</li><li>Evaluation & monitoring</li></ul></div>
+                        <div class="svc"><span class="svc-mark">Context‑building</span><h3>Ground AI in your business</h3><p>Create the business context—KPI definitions, data dictionaries, decision rules—so AI answers are accurate and aligned.</p><ul><li>KPI/KRI glossary integration</li><li>Knowledge base & policy ingestion</li><li>Human‑in‑the‑loop workflows</li></ul></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- EXAMPLES OF OUR WORK -->
+        <section class="reveal" id="examples">
+            <div class="wrap">
+                <span class="eyebrow">Examples of our work</span>
+                <h2>Four interactive examples <strong>straight from the playbook</strong></h2>
+                <p class="lead">Click any card to explore the analysis, chart, and the operating playbook it produced. These are illustrative patterns we commonly see, not named client data.</p>
+                <div class="examples-grid" id="examples-grid">
+                    <!-- Example 1 -->
+                    <details class="field-card" id="regression-details">
+                        <summary class="field-summary">
+                            <span class="eyebrow" style="margin-bottom:10px;">On-time Delivery & Margins</span>
+                            <h3 style="font-size:1.1rem; font-weight:600; margin-bottom:8px; color:var(--cream);">The threshold effect in service levels</h3>
+                            <p style="font-size:0.85rem; color:var(--muted); line-height:1.65; margin-bottom:16px;">A regression on 21,316 orders showing where service improvement actually pays off.</p>
+                            <span class="expand-cta">View analysis <svg class="chevron" width="11" height="7" viewBox="0 0 11 7" fill="none"><path d="M1 1L5.5 5.5L10 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        </summary>
+                        <div class="field-card-body">
+                            <div class="field-card-label"><span>On-time delivery vs. gross margin lift</span><strong>hover to inspect</strong></div>
+                            <div id="regression-chart" class="field-chart-plot"></div>
+                            <div class="field-caption">Every <strong>1-point improvement</strong> was associated with a <strong>0.4-point increase in gross margin</strong>, but only after service crossed <strong>92%</strong>.</div>
+                            <div class="field-stats">
+                                <div class="fs"><strong>0.4</strong><span>margin pts per OTD pt</span></div>
+                                <div class="fs"><strong>92%</strong><span>service-level threshold</span></div>
+                                <div class="fs"><strong>0.81</strong><span>model R²</span></div>
+                                <div class="fs"><strong>21,316</strong><span>orders analyzed</span></div>
                             </div>
-                            <div class="warning-box"><span class="eyebrow">The marginal-ROI trap</span><p>Do not apply the 0.4 multiplier across the whole network.</p></div>
+                            <div class="playbook-inner">
+                                <span class="eyebrow">Reading the regression</span>
+                                <h3 style="margin:10px 0;">A metric only earns its keep if it has the capacity to change your strategy.</h3>
+                                <div class="svc-grid" style="margin-top:20px;">
+                                    <div class="svc"><span class="svc-mark">Below 92%</span><h4 style="font-size:1.1rem;">Fix the floor</h4><p>Stop spreading effort evenly.</p></div>
+                                    <div class="svc"><span class="svc-mark">Above 92%</span><h4 style="font-size:1.1rem;">Harvest the premium</h4><p>Put capital into lanes above the line.</p></div>
+                                </div>
+                                <div class="warning-box"><span class="eyebrow">The marginal-ROI trap</span><p>Do not apply the 0.4 multiplier across the whole network.</p></div>
+                            </div>
                         </div>
-                    </div>
-                </details>
+                    </details>
 
-                <!-- Example 2 -->
-                <details class="field-card" id="slotting-details">
-                    <summary class="field-summary">
-                        <span class="eyebrow" style="margin-bottom:10px;">Warehouse Slotting</span>
-                        <h3 style="font-size:1.1rem; font-weight:600; margin-bottom:8px; color:var(--cream);">Cluster-based network analysis for speed</h3>
-                        <p style="font-size:0.85rem; color:var(--muted); line-height:1.65; margin-bottom:16px;">How co-picking patterns reduce travel time and improve slotting.</p>
-                        <span class="expand-cta">View analysis <svg class="chevron" width="11" height="7" viewBox="0 0 11 7" fill="none"><path d="M1 1L5.5 5.5L10 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </summary>
-                    <div class="field-card-body">
-                        <div class="field-card-label"><span>SKU clustering by pick frequency & weight</span><strong>hover for details</strong></div>
-                        <div id="slotting-chart" class="field-chart-plot"></div>
-                        <div class="field-caption">We found <strong>three natural clusters</strong> of items frequently picked together. Moving them closer cut travel time by <strong>18%</strong>.</div>
-                        <div class="field-stats">
-                            <div class="fs"><strong>3</strong><span>clusters identified</span></div>
-                            <div class="fs"><strong>18%</strong><span>faster picking</span></div>
-                            <div class="fs"><strong>22%</strong><span>less travel distance</span></div>
-                            <div class="fs"><strong>4,112</strong><span>SKUs analyzed</span></div>
+                    <!-- Example 2 -->
+                    <details class="field-card" id="slotting-details">
+                        <summary class="field-summary">
+                            <span class="eyebrow" style="margin-bottom:10px;">Warehouse Slotting</span>
+                            <h3 style="font-size:1.1rem; font-weight:600; margin-bottom:8px; color:var(--cream);">Cluster-based network analysis for speed</h3>
+                            <p style="font-size:0.85rem; color:var(--muted); line-height:1.65; margin-bottom:16px;">How co-picking patterns reduce travel time and improve slotting.</p>
+                            <span class="expand-cta">View analysis <svg class="chevron" width="11" height="7" viewBox="0 0 11 7" fill="none"><path d="M1 1L5.5 5.5L10 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        </summary>
+                        <div class="field-card-body">
+                            <div class="field-card-label"><span>SKU clustering by pick frequency & weight</span><strong>hover for details</strong></div>
+                            <div id="slotting-chart" class="field-chart-plot"></div>
+                            <div class="field-caption">We found <strong>three natural clusters</strong> of items frequently picked together. Moving them closer cut travel time by <strong>18%</strong>.</div>
+                            <div class="field-stats">
+                                <div class="fs"><strong>3</strong><span>clusters identified</span></div>
+                                <div class="fs"><strong>18%</strong><span>faster picking</span></div>
+                                <div class="fs"><strong>22%</strong><span>less travel distance</span></div>
+                                <div class="fs"><strong>4,112</strong><span>SKUs analyzed</span></div>
+                            </div>
                         </div>
-                    </div>
-                </details>
+                    </details>
 
-                <!-- Example 3 -->
-                <details class="field-card" id="churn-details">
-                    <summary class="field-summary">
-                        <span class="eyebrow" style="margin-bottom:10px;">Churn Prediction</span>
-                        <h3 style="font-size:1.1rem; font-weight:600; margin-bottom:8px; color:var(--cream);">Who's about to leave, and who's worth saving</h3>
-                        <p style="font-size:0.85rem; color:var(--muted); line-height:1.65; margin-bottom:16px;">A predictive model that flags at-risk accounts early, ranked by value.</p>
-                        <span class="expand-cta">View analysis <svg class="chevron" width="11" height="7" viewBox="0 0 11 7" fill="none"><path d="M1 1L5.5 5.5L10 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </summary>
-                    <div class="field-card-body">
-                        <div class="field-card-label"><span>Customer value vs. predicted churn probability</span><strong>hover for details</strong></div>
-                        <div id="churn-chart" class="field-chart-plot"></div>
-                        <div class="field-caption">The model flags accounts that look fine on revenue but have <strong>high churn risk</strong>. At a 0.7 threshold, it captures <strong>74%</strong> of churners.</div>
-                        <div class="field-stats">
-                            <div class="fs"><strong>0.86</strong><span>AUC score</span></div>
-                            <div class="fs"><strong>74%</strong><span>recall @ 0.7</span></div>
-                            <div class="fs"><strong>3.2x</strong><span>retention ROI</span></div>
-                            <div class="fs"><strong>1,847</strong><span>accounts scored</span></div>
+                    <!-- Example 3 -->
+                    <details class="field-card" id="churn-details">
+                        <summary class="field-summary">
+                            <span class="eyebrow" style="margin-bottom:10px;">Churn Prediction</span>
+                            <h3 style="font-size:1.1rem; font-weight:600; margin-bottom:8px; color:var(--cream);">Who's about to leave, and who's worth saving</h3>
+                            <p style="font-size:0.85rem; color:var(--muted); line-height:1.65; margin-bottom:16px;">A predictive model that flags at-risk accounts early, ranked by value.</p>
+                            <span class="expand-cta">View analysis <svg class="chevron" width="11" height="7" viewBox="0 0 11 7" fill="none"><path d="M1 1L5.5 5.5L10 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        </summary>
+                        <div class="field-card-body">
+                            <div class="field-card-label"><span>Customer value vs. predicted churn probability</span><strong>hover for details</strong></div>
+                            <div id="churn-chart" class="field-chart-plot"></div>
+                            <div class="field-caption">The model flags accounts that look fine on revenue but have <strong>high churn risk</strong>. At a 0.7 threshold, it captures <strong>74%</strong> of churners.</div>
+                            <div class="field-stats">
+                                <div class="fs"><strong>0.86</strong><span>AUC score</span></div>
+                                <div class="fs"><strong>74%</strong><span>recall @ 0.7</span></div>
+                                <div class="fs"><strong>3.2x</strong><span>retention ROI</span></div>
+                                <div class="fs"><strong>1,847</strong><span>accounts scored</span></div>
+                            </div>
                         </div>
-                    </div>
-                </details>
+                    </details>
 
-                <!-- Example 4 -->
-                <details class="field-card" id="bundle-details">
-                    <summary class="field-summary">
-                        <span class="eyebrow" style="margin-bottom:10px;">Bundle Suggestion</span>
-                        <h3 style="font-size:1.1rem; font-weight:600; margin-bottom:8px; color:var(--cream);">Bundles that lift order value without cannibalizing margin</h3>
-                        <p style="font-size:0.85rem; color:var(--muted); line-height:1.65; margin-bottom:16px;">Clustering purchase data and price elasticity to design profitable bundles.</p>
-                        <span class="expand-cta">View analysis <svg class="chevron" width="11" height="7" viewBox="0 0 11 7" fill="none"><path d="M1 1L5.5 5.5L10 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </summary>
-                    <div class="field-card-body">
-                        <div class="field-card-label"><span>Co-purchase heatmap between product categories</span><strong>hover for joint probability</strong></div>
-                        <div id="bundle-chart" class="field-chart-plot"></div>
-                        <div class="field-caption">Clustering reveals <strong>natural affinities</strong>. Price elasticity determines the discount. We identified <strong>7 bundles</strong> with a <strong>14% lift</strong> in average order value.</div>
-                        <div class="field-stats">
-                            <div class="fs"><strong>7</strong><span>bundles identified</span></div>
-                            <div class="fs"><strong>14%</strong><span>expected AOV lift</span></div>
-                            <div class="fs"><strong>-1.2 to -2.1</strong><span>elasticity range</span></div>
-                            <div class="fs"><strong>31,502</strong><span>transactions analyzed</span></div>
+                    <!-- Example 4 -->
+                    <details class="field-card" id="bundle-details">
+                        <summary class="field-summary">
+                            <span class="eyebrow" style="margin-bottom:10px;">Bundle Suggestion</span>
+                            <h3 style="font-size:1.1rem; font-weight:600; margin-bottom:8px; color:var(--cream);">Bundles that lift order value without cannibalizing margin</h3>
+                            <p style="font-size:0.85rem; color:var(--muted); line-height:1.65; margin-bottom:16px;">Clustering purchase data and price elasticity to design profitable bundles.</p>
+                            <span class="expand-cta">View analysis <svg class="chevron" width="11" height="7" viewBox="0 0 11 7" fill="none"><path d="M1 1L5.5 5.5L10 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        </summary>
+                        <div class="field-card-body">
+                            <div class="field-card-label"><span>Co-purchase heatmap between product categories</span><strong>hover for joint probability</strong></div>
+                            <div id="bundle-chart" class="field-chart-plot"></div>
+                            <div class="field-caption">Clustering reveals <strong>natural affinities</strong>. Price elasticity determines the discount. We identified <strong>7 bundles</strong> with a <strong>14% lift</strong> in average order value.</div>
+                            <div class="field-stats">
+                                <div class="fs"><strong>7</strong><span>bundles identified</span></div>
+                                <div class="fs"><strong>14%</strong><span>expected AOV lift</span></div>
+                                <div class="fs"><strong>-1.2 to -2.1</strong><span>elasticity range</span></div>
+                                <div class="fs"><strong>31,502</strong><span>transactions analyzed</span></div>
+                            </div>
                         </div>
-                    </div>
-                </details>
-            </div>
-        </div>
-    </section>
-
-    <!-- GLOBAL PROCESS STRIP -->
-    <div class="stages reveal" id="stages">
-        <div class="stages-inner">
-            <div class="stage"><div class="stage-num">STAGE 01</div><div class="stage-name">See clearly</div><div class="stage-desc">What actually happened?</div></div>
-            <div class="stage"><div class="stage-num">STAGE 02</div><div class="stage-name">Understand why</div><div class="stage-desc">Why did it happen?</div></div>
-            <div class="stage"><div class="stage-num">STAGE 03</div><div class="stage-name">Anticipate next</div><div class="stage-desc">What's likely to happen?</div></div>
-            <div class="stage"><div class="stage-num">STAGE 04</div><div class="stage-name">Act with confidence</div><div class="stage-desc">What should we do about it?</div></div>
-        </div>
-    </div>
-
-    <!-- CLIENT RESULTS -->
-    <section class="results reveal" id="results">
-        <div class="wrap">
-            <span class="eyebrow" style="justify-content:center; display:flex;">Client results</span>
-            <h2 style="text-align:center; margin-bottom:40px;">Analytics maturity, <strong>measured in outcomes.</strong></h2>
-            <div class="result-card">
-                <div class="result-quote">Before Equonytics, our pricing and inventory decisions relied on month-old reports and management judgment. Eight months later, we have real-time dashboards, a demand forecast, and a pricing model that adapts continuously. The return was visible within the first ninety days.</div>
-                <div class="result-attr"><strong>Chief Operating Officer</strong>, Regional distribution company · $45M revenue</div>
-                <div class="result-confidential">Identifying details withheld at the client's request.</div>
-                <div class="result-metrics">
-                    <div class="rm"><strong>28%</strong><span>Reduction in overstock costs</span></div>
-                    <div class="rm"><strong>+6 pts</strong><span>Gross margin improvement</span></div>
-                    <div class="rm"><strong>16 hrs</strong><span>Weekly reporting hours recovered</span></div>
-                    <div class="rm"><strong>90 days</strong><span>Time to first measurable ROI</span></div>
+                    </details>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- CTA with analytics curve -->
-    <section class="cta reveal" id="contact">
-        <div class="wrap">
-            <div class="cta-box">
-                <span class="eyebrow">Request an assessment</span>
-                <h2>Find out where you sit on the analytics curve.</h2>
-                <p>A single, complimentary 60-minute conversation is enough to place you on the analytics curve, surface the highest-value opportunity in your data, and outline a realistic path forward.</p>
-
-                <div class="cta-chart-wrap">
-                    <div class="field-card-label" style="text-align:left;">
-                        <span>Where most businesses actually sit</span>
-                        <strong>hover the curve</strong>
-                    </div>
-                    <div id="maturity-chart" class="cta-chart" aria-label="Bell curve showing the distribution of businesses across the analytics maturity continuum, peaking just before stage one"></div>
-                    <p class="illustrative-note" style="text-align:left;">Illustrative distribution built from patterns we see across engagements, not survey data.</p>
-                </div>
-
-                <form class="cta-form" action="https://formspree.io/f/xnparqle" method="POST">
-                    <input type="hidden" name="_subject" value="Equonytics Assessment Request">
-                    <input type="text" name="_gotcha" style="display:none">
-                    <input type="hidden" name="_next" value="https://www.equonytics.com/thank-you.html">
-                    <input type="email" name="email" placeholder="you@yourorganization.com" aria-label="Email address" required>
-                    <button type="submit">Request assessment</button>
-                </form>
-                <p class="cta-note">hello@equonytics.com</p>
-                <p class="cta-confidential">Whatever you share with us stays between us. We do not use client names, logos, or data as marketing material, on this site or anywhere else.</p>
+        <!-- GLOBAL PROCESS STRIP -->
+        <div class="stages reveal" id="stages">
+            <div class="stages-inner">
+                <div class="stage"><div class="stage-num">STAGE 01</div><div class="stage-name">See clearly</div><div class="stage-desc">What actually happened?</div></div>
+                <div class="stage"><div class="stage-num">STAGE 02</div><div class="stage-name">Understand why</div><div class="stage-desc">Why did it happen?</div></div>
+                <div class="stage"><div class="stage-num">STAGE 03</div><div class="stage-name">Anticipate next</div><div class="stage-desc">What's likely to happen?</div></div>
+                <div class="stage"><div class="stage-num">STAGE 04</div><div class="stage-name">Act with confidence</div><div class="stage-desc">What should we do about it?</div></div>
             </div>
         </div>
-    </section>
+
+        <!-- CLIENT RESULTS -->
+        <section class="results reveal" id="results">
+            <div class="wrap">
+                <span class="eyebrow" style="justify-content:center; display:flex;">Client results</span>
+                <h2 style="text-align:center; margin-bottom:40px;">Analytics maturity, <strong>measured in outcomes.</strong></h2>
+                <div class="result-card">
+                    <div class="result-quote">Before Equonytics, our pricing and inventory decisions relied on month-old reports and management judgment. Eight months later, we have real-time dashboards, a demand forecast, and a pricing model that adapts continuously. The return was visible within the first ninety days.</div>
+                    <div class="result-attr"><strong>Chief Operating Officer</strong>, Regional distribution company · $45M revenue</div>
+                    <div class="result-confidential">Identifying details withheld at the client's request.</div>
+                    <div class="result-metrics">
+                        <div class="rm"><strong>28%</strong><span>Reduction in overstock costs</span></div>
+                        <div class="rm"><strong>+6 pts</strong><span>Gross margin improvement</span></div>
+                        <div class="rm"><strong>16 hrs</strong><span>Weekly reporting hours recovered</span></div>
+                        <div class="rm"><strong>90 days</strong><span>Time to first measurable ROI</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA with analytics curve -->
+        <section class="cta reveal" id="contact">
+            <div class="wrap">
+                <div class="cta-box">
+                    <span class="eyebrow">Request an assessment</span>
+                    <h2>Find out where you sit on the analytics curve.</h2>
+                    <p>A single, complimentary 60-minute conversation is enough to place you on the analytics curve, surface the highest-value opportunity in your data, and outline a realistic path forward.</p>
+
+                    <div class="cta-chart-wrap">
+                        <div class="field-card-label" style="text-align:left;">
+                            <span>Where most businesses actually sit</span>
+                            <strong>hover the curve</strong>
+                        </div>
+                        <div id="maturity-chart" class="cta-chart" aria-label="Bell curve showing the distribution of businesses across the analytics maturity continuum, peaking just before stage one"></div>
+                        <p class="illustrative-note" style="text-align:left;">Illustrative distribution built from patterns we see across engagements, not survey data.</p>
+                    </div>
+
+                    <form class="cta-form" id="assessment-form" action="https://formspree.io/f/xnparqle" method="POST">
+                        <input type="hidden" name="_subject" value="Equonytics Assessment Request">
+                        <input type="text" name="_gotcha" style="display:none">
+                        <input type="email" name="email" placeholder="you@yourorganization.com" aria-label="Email address" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+">
+                        <button type="submit">Request assessment</button>
+                    </form>
+                    <div class="form-success" id="form-success">
+                        Thank you! Your request has been received. We'll be in touch within one business day.
+                    </div>
+                    <p class="cta-note">hello@equonytics.com</p>
+                    <p class="cta-confidential">Whatever you share with us stays between us. We do not use client names, logos, or data as marketing material, on this site or anywhere else.</p>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- FOOTER -->
     <footer>
@@ -916,16 +970,16 @@
                     <span class="footer-name">Equonytics</span>
                 </div>
                 <p class="footer-desc">An independent analytics consultancy helping organizations move from clear reporting to confident decisions.</p>
-                <div class="footer-loc">WORKING WITH CLIENTS EVERYWHERE</div>
+                <div class="footer-loc">WORKING WITH CLIENTS EVERYWHERE<br> BASED IN RTP, NC</div>
             </div>
             <div class="fc">
                 <h4>What we help with</h4>
                 <ul>
-                    <li><a href="#" data-tab-link="fractional">Fractional Leadership</a></li>
-                    <li><a href="#" data-tab-link="assessment">Analytics Maturity Assessment</a></li>
-                    <li><a href="#" data-tab-link="change">Change Management</a></li>
-                    <li><a href="#" data-tab-link="forecasting">Forecasting Modelling</a></li>
-                    <li><a href="#" data-tab-link="ai">AI Business Process Integration</a></li>
+                    <li><a href="#service-selector" data-tab-link="fractional">Fractional Leadership</a></li>
+                    <li><a href="#service-selector" data-tab-link="assessment">Analytics Maturity Assessment</a></li>
+                    <li><a href="#service-selector" data-tab-link="change">Change Management</a></li>
+                    <li><a href="#service-selector" data-tab-link="forecasting">Forecasting Modelling</a></li>
+                    <li><a href="#service-selector" data-tab-link="ai">AI Business Process Integration</a></li>
                 </ul>
             </div>
             <div class="fc">
@@ -946,7 +1000,8 @@
             </div>
         </div>
         <div class="foot-bottom">
-            <span>© 2025 Equonytics LLC · All rights reserved</span>
+            <span>© 2026 Equonytics LLC · All rights reserved</span>
+            <a href="#main" class="back-to-top">Back to top ↑</a>
             <span>hello@equonytics.com</span>
         </div>
     </footer>
@@ -957,36 +1012,76 @@
         const serviceOptions = document.querySelectorAll('.service-option');
         const tabPanels = document.querySelectorAll('.tab-panel');
         const footerTabLinks = document.querySelectorAll('[data-tab-link]');
-        const placeholder = document.getElementById('service-placeholder');
         const serviceSelector = document.getElementById('service-selector');
 
-        function activateTab(tabId) {
-            serviceOptions.forEach(btn => btn.classList.remove('active'));
-            const activeOption = Array.from(serviceOptions).find(btn => btn.dataset.tab === tabId);
-            if (activeOption) activeOption.classList.add('active');
+        function activateTab(tabId, scrollToPanel = true) {
+            // Update buttons
+            serviceOptions.forEach(btn => {
+                const isActive = btn.dataset.tab === tabId;
+                btn.classList.toggle('active', isActive);
+                btn.setAttribute('aria-selected', isActive);
+            });
 
-            tabPanels.forEach(panel => panel.classList.remove('active'));
-            const activePanel = document.getElementById('panel-' + tabId);
-            if (activePanel) activePanel.classList.add('active');
-
-            if (placeholder) placeholder.style.display = 'none';
+            // Update panels
+            tabPanels.forEach(panel => {
+                const isActive = panel.id === 'panel-' + tabId;
+                panel.classList.toggle('active', isActive);
+                if (isActive && scrollToPanel) {
+                    panel.focus({ preventScroll: true });
+                    setTimeout(() => {
+                        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 50);
+                }
+            });
         }
 
         serviceOptions.forEach(btn => {
-            btn.addEventListener('click', () => activateTab(btn.dataset.tab));
+            btn.addEventListener('click', () => {
+                activateTab(btn.dataset.tab);
+            });
         });
 
         footerTabLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                activateTab(link.dataset.tabLink);
+                const tabId = link.dataset.tabLink;
+                activateTab(tabId);
+                // Scroll to service selector first
                 if (serviceSelector) {
                     serviceSelector.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                } else {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             });
         });
+
+        // Form handling via AJAX to Formspree
+        const form = document.getElementById('assessment-form');
+        const successMsg = document.getElementById('form-success');
+        if (form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    if (response.ok) {
+                        form.reset();
+                        successMsg.classList.add('visible');
+                        setTimeout(() => {
+                            successMsg.classList.remove('visible');
+                        }, 5000);
+                    } else {
+                        alert('There was a problem submitting your request. Please email us directly at hello@equonytics.com');
+                    }
+                } catch (error) {
+                    alert('Network error. Please email us directly at hello@equonytics.com');
+                }
+            });
+        }
 
         // Chart functions for examples and maturity curve
         function renderRegressionChart() {
@@ -1120,7 +1215,6 @@
         }
 
         function renderMaturityCurve() {
-            // Split-normal curve with tooltips on stages
             const mu = 0.88, sigmaLeft = 0.32, sigmaRight = 0.78;
             const xs = [], ys = [];
             for (let x = 0; x <= 4; x += 0.05) {
