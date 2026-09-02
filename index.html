@@ -476,39 +476,96 @@
         .stage-name { font-family: var(--serif); font-size: 1.12rem; font-weight: 500; margin: 10px 0 6px; color: var(--cream); }
         .stage-desc { font-size: 0.8rem; color: var(--faint); }
 
-        /* ---------- RESULTS ---------- */
-        .result-card {
-            max-width: 800px; margin: 0 auto;
-            background: var(--surface);
-            border-radius: var(--radius-lg);
-            padding: 44px 46px;
+        /* ---------- WHAT MAKES US DIFFERENT ---------- */
+        .differentiator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 20px;
+        }
+        .diff-column {
+            background: var(--surface-2);
+            border-radius: var(--radius);
+            padding: 22px 20px;
             border: 1px solid var(--border);
+        }
+        .diff-column h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .diff-column ul {
+            list-style: none;
+        }
+        .diff-column li {
+            font-size: 0.83rem;
+            color: var(--muted);
+            padding-left: 18px;
+            position: relative;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        .diff-column li::before {
+            content: '·';
+            position: absolute;
+            left: 0;
+            top: -3px;
+            font-size: 1.3rem;
+            color: var(--brass);
+        }
+        @media (max-width: 700px) {
+            .differentiator-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ---------- BENCHMARKS SECTION ---------- */
+        .benchmark-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 30px;
+        }
+        .benchmark-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px 22px;
+            transition: box-shadow 0.25s, border-color 0.25s;
+        }
+        .benchmark-card:hover {
+            border-color: var(--border-strong);
             box-shadow: var(--shadow);
         }
-        .result-quote {
+        .benchmark-stat {
             font-family: var(--serif);
-            font-size: 1.28rem;
-            font-weight: 400;
-            color: var(--cream);
-            line-height: 1.55;
-            margin-bottom: 18px;
-        }
-        .result-quote::before {
-            content: '\201C';
-            font-size: 3.4rem;
+            font-size: 1.8rem;
+            font-weight: 600;
             color: var(--brass);
-            opacity: 0.55;
-            line-height: 0;
-            vertical-align: -0.3em;
-            margin-right: 4px;
+            line-height: 1.2;
+            margin-bottom: 8px;
         }
-        .result-attr { font-size: 0.82rem; color: var(--muted); margin-bottom: 10px; }
-        .result-attr strong { color: var(--cream); font-weight: 600; }
-        .result-confidential { font-size: 0.72rem; color: var(--faint); margin-bottom: 26px; line-height: 1.6; }
-        .result-metrics { display: flex; gap: 1px; flex-wrap: wrap; background: var(--border); border-radius: 12px; overflow: hidden; }
-        .rm { background: var(--surface-2); padding: 16px 18px; text-align: center; flex: 1; min-width: 110px; }
-        .rm strong { display: block; font-family: var(--serif); font-size: 1.3rem; font-weight: 600; color: var(--brass); line-height: 1.1; }
-        .rm span { font-size: 0.7rem; color: var(--faint); display: block; margin-top: 4px; }
+        .benchmark-desc {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        .benchmark-source {
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            color: var(--faint);
+            letter-spacing: 0.3px;
+        }
+
+        @media (max-width: 700px) {
+            .benchmark-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
         /* ---------- CTA ---------- */
         .cta-box {
@@ -616,6 +673,8 @@
             .cta-box { padding: 40px 24px; }
             .field-stats { grid-template-columns: repeat(2, 1fr); }
             .ps { grid-template-columns: 46px 1fr; gap: 16px; }
+            .carousel-nav { gap: 12px; }
+            .carousel-prev, .carousel-next { width: 38px; height: 38px; }
         }
     </style>
 </head>
@@ -677,7 +736,7 @@
                 </button>
                 <button class="service-option" data-tab="forecasting" role="tab" aria-selected="false" aria-controls="panel-forecasting" id="tab-forecasting">
                     <span class="option-mark">04</span>
-                    <div class="option-title-wrap"><span class="option-icon"></span><span class="option-title">Forecast Modelling</span></div>
+                    <div class="option-title-wrap"><span class="option-icon"></span><span class="option-title">Forecasting Modelling</span></div>
                     <span class="option-desc">Predictive models for demand, churn, and risk.</span>
                 </button>
                 <button class="service-option" data-tab="ai" role="tab" aria-selected="false" aria-controls="panel-ai" id="tab-ai">
@@ -899,6 +958,46 @@
             </div>
         </section>
 
+        <!-- WHAT MAKES US DIFFERENT -->
+        <section class="reveal" id="what-makes-us-different">
+            <div class="wrap">
+                <details class="field-card" id="differentiator-details">
+                    <summary class="field-summary">
+                        <span class="eyebrow" style="margin-bottom:10px;">What makes us different</span>
+                        <h3 style="font-size:1.1rem; font-weight:600; margin-bottom:8px; color:var(--cream);">Not your typical analytics consultancy</h3>
+                        <p style="font-size:0.85rem; color:var(--muted); line-height:1.65; margin-bottom:16px;">We’ve heard the horror stories.We’ve fixed them. Here’s how we avoid those traps.</p>
+                        <span class="expand-cta">Read the difference <svg class="chevron" width="11" height="7" viewBox="0 0 11 7" fill="none"><path d="M1 1L5.5 5.5L10 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    </summary>
+                    <div class="field-card-body">
+                        <div class="differentiator-grid">
+                            <div class="diff-column">
+                                <h4 style="color:var(--faint);">❌ The usual way</h4>
+                                <ul>
+                                    <li>Overpriced slide decks with no implementation</li>
+                                    <li>Black‑box models you can’t maintain</li>
+                                    <li>Jargon‑heavy reports that don’t answer business questions</li>
+                                    <li>Long projects with no check‑ins</li>
+                                    <li>Ongoing Dependency on consultants</li>
+                                    <li>Hidden costs and scope creep</li>
+                                </ul>
+                            </div>
+                            <div class="diff-column">
+                                <h4 style="color:var(--brass);">✅ The Equonytics way</h4>
+                                <ul>
+                                    <li>Working software, dashboards, and decisions</li>
+                                    <li>Transparent Models built with your team: documented and owned by your company</li>
+                                    <li>Research-driven insights tied direcly to P&L impact</li>
+                                    <li>Short sprints with measurable ROI in 90 days</li>
+                                    <li>We train your team and exit when you’re self‑sufficient</li>
+                                    <li>Transparent pricing and no surprise add‑ons</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </section>
+
         <!-- GLOBAL PROCESS STRIP -->
         <div class="stages reveal" id="stages">
             <div class="stages-inner">
@@ -909,22 +1008,45 @@
             </div>
         </div>
 
-        <!-- CLIENT RESULTS -->
-        <section class="results reveal" id="results">
+        <!-- INDUSTRY BENCHMARKS & RESEARCH -->
+        <section class="reveal" id="results">
             <div class="wrap">
-                <span class="eyebrow" style="justify-content:center; display:flex;">Client results</span>
-                <h2 style="text-align:center; margin-bottom:40px;">Analytics maturity, <strong>measured in outcomes.</strong></h2>
-                <div class="result-card">
-                    <div class="result-quote">Before Equonytics, our pricing and inventory decisions relied on month-old reports and management judgment. Eight months later, we have real-time dashboards, a demand forecast, and a pricing model that adapts continuously. The return was visible within the first ninety days.</div>
-                    <div class="result-attr"><strong>Chief Operating Officer</strong>, Regional distribution company · $45M revenue</div>
-                    <div class="result-confidential">Identifying details withheld at the client's request.</div>
-                    <div class="result-metrics">
-                        <div class="rm"><strong>28%</strong><span>Reduction in overstock costs</span></div>
-                        <div class="rm"><strong>+6 pts</strong><span>Gross margin improvement</span></div>
-                        <div class="rm"><strong>16 hrs</strong><span>Weekly reporting hours recovered</span></div>
-                        <div class="rm"><strong>90 days</strong><span>Time to first measurable ROI</span></div>
+                <span class="eyebrow" style="justify-content:center; display:flex;">Industry benchmarks</span>
+                <h2 style="text-align:center; margin-bottom:40px;">The data speaks <strong>for itself</strong></h2>
+                <p class="lead" style="margin:0 auto 40px; text-align:center; max-width:700px;">These are not our own claims—they’re what leading research firms and academic studies consistently find about the value of data-driven decision making.</p>
+                <div class="benchmark-grid">
+                    <div class="benchmark-card">
+                        <div class="benchmark-stat">23x</div>
+                        <div class="benchmark-desc">Data-driven organizations are 23 times more likely to acquire customers than their less data-driven peers.</div>
+                        <div class="benchmark-source">McKinsey & Company</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-stat">5–6%</div>
+                        <div class="benchmark-desc">Companies in the top third of their industry in data-driven decision making are, on average, 5% more productive and 6% more profitable than competitors.</div>
+                        <div class="benchmark-source">MIT Sloan Management Review</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-stat">80%</div>
+                        <div class="benchmark-desc">Through 2025, 80% of organizations seeking to scale digital business will fail because they do not take a modern approach to data and analytics governance.</div>
+                        <div class="benchmark-source">Gartner</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-stat">2.6x</div>
+                        <div class="benchmark-desc">Organizations with a strong data culture are 2.6 times more likely to report being data-driven and achieving business value from analytics.</div>
+                        <div class="benchmark-source">Deloitte</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-stat">30%</div>
+                        <div class="benchmark-desc">Insights-driven businesses grow at an average of more than 30% annually, far outpacing their competitors.</div>
+                        <div class="benchmark-source">Forrester</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-stat">6%</div>
+                        <div class="benchmark-desc">Firms that adopt data-driven decision making enjoy 5–6% higher output and productivity than would be expected given their other investments.</div>
+                        <div class="benchmark-source">Harvard Business Review</div>
                     </div>
                 </div>
+                <p class="illustrative-note" style="text-align:center; margin-top:20px;">Sources: Publicly available research from McKinsey, MIT Sloan Management Review, Gartner, Deloitte, Forrester, and Harvard Business Review. Figures reflect general industry findings, not specific Equonytics client outcomes.</p>
             </div>
         </section>
 
@@ -994,7 +1116,7 @@
             <div class="fc">
                 <h4>Company</h4>
                 <ul>
-                    <li><a href="#results">Client results</a></li>
+                    <li><a href="#results">Industry benchmarks</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </div>
@@ -1008,21 +1130,19 @@
 
     <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
     <script>
-        // Tab switching logic
+        // ---------- TAB SWITCHING ----------
         const serviceOptions = document.querySelectorAll('.service-option');
         const tabPanels = document.querySelectorAll('.tab-panel');
         const footerTabLinks = document.querySelectorAll('[data-tab-link]');
         const serviceSelector = document.getElementById('service-selector');
 
         function activateTab(tabId, scrollToPanel = true) {
-            // Update buttons
             serviceOptions.forEach(btn => {
                 const isActive = btn.dataset.tab === tabId;
                 btn.classList.toggle('active', isActive);
                 btn.setAttribute('aria-selected', isActive);
             });
 
-            // Update panels
             tabPanels.forEach(panel => {
                 const isActive = panel.id === 'panel-' + tabId;
                 panel.classList.toggle('active', isActive);
@@ -1036,9 +1156,7 @@
         }
 
         serviceOptions.forEach(btn => {
-            btn.addEventListener('click', () => {
-                activateTab(btn.dataset.tab);
-            });
+            btn.addEventListener('click', () => activateTab(btn.dataset.tab));
         });
 
         footerTabLinks.forEach(link => {
@@ -1046,14 +1164,13 @@
                 e.preventDefault();
                 const tabId = link.dataset.tabLink;
                 activateTab(tabId);
-                // Scroll to service selector first
                 if (serviceSelector) {
                     serviceSelector.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
 
-        // Form handling via AJAX to Formspree
+        // ---------- FORM HANDLING (AJAX) ----------
         const form = document.getElementById('assessment-form');
         const successMsg = document.getElementById('form-success');
         if (form) {
@@ -1064,16 +1181,12 @@
                     const response = await fetch(form.action, {
                         method: 'POST',
                         body: formData,
-                        headers: {
-                            'Accept': 'application/json'
-                        }
+                        headers: { 'Accept': 'application/json' }
                     });
                     if (response.ok) {
                         form.reset();
                         successMsg.classList.add('visible');
-                        setTimeout(() => {
-                            successMsg.classList.remove('visible');
-                        }, 5000);
+                        setTimeout(() => successMsg.classList.remove('visible'), 5000);
                     } else {
                         alert('There was a problem submitting your request. Please email us directly at hello@equonytics.com');
                     }
@@ -1083,7 +1196,23 @@
             });
         }
 
-        // Chart functions for examples and maturity curve
+        // ---------- CHART RENDERING ----------
+        function safeRenderCharts() {
+            if (typeof Plotly === 'undefined') {
+                console.warn('Plotly failed to load. Charts will not be displayed, but the rest of the site remains functional.');
+                return;
+            }
+            try {
+                renderRegressionChart();
+                renderSlottingChart();
+                renderChurnChart();
+                renderBundleChart();
+                renderMaturityCurve();
+            } catch (error) {
+                console.error('Error rendering charts:', error);
+            }
+        }
+
         function renderRegressionChart() {
             const points = [
                 { otd: 80.4, margin: -0.42 }, { otd: 81.8, margin: -0.55 }, { otd: 83.1, margin: -0.31 },
@@ -1261,12 +1390,8 @@
             Plotly.newPlot('maturity-chart', [curve, stagePoints], layout, { displayModeBar: false, responsive: true });
         }
 
-        // Render all charts
-        renderRegressionChart();
-        renderSlottingChart();
-        renderChurnChart();
-        renderBundleChart();
-        renderMaturityCurve();
+        // Initialize charts after everything else, but not dependent on carousel
+        safeRenderCharts();
 
         // Reveal animation
         if ('IntersectionObserver' in window) {
